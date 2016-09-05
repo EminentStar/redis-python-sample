@@ -2,6 +2,10 @@ h1 a {
     color: white;
 }
 
+h2 a {
+    color: white;
+}
+
 .page-header {
     background-color: #26a69a;
     margin-top: 0;

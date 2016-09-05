@@ -69,6 +69,9 @@ TEMPLATES = [
     },
 ]
 
+LOGIN_REDIRECT_URL = '/'
+
+
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
 
@@ -81,49 +84,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-SESSION_ENGINE = 'redis_sessions.session'
-SESSION_REDIS_HOST = 'localhost'
-SESSION_REDIS_PORT = 6379
-SESSION_REDIS_DB = 0
-# SESSION_REDIS_PASSWORD = 'password'
-# SESSION_REDIS_PREFIX = 'session'
-# SESSION_REDIS_SOCKET_TIMEOUT = 1
-
-
-# If you prefer domain socket connection,
-# you can just add this line instead of SESSION_REDIS_HOST and SESSION_REDIS_PORT.
-
-# SESSION_REDIS_UNIX_DOMAIN_SOCKET_PATH = '/var/run/redis/redis.sock'
-
-# Redis Sentinel
-# SESSION_REDIS_SENTINEL_LIST = [(host, port), (host, port), (host, port)]
-# SESSION_REDIS_SENTINEL_MASTER_ALIAS = 'sentinel-master'
-
-
-CACHES = {
-    'default': {
-        'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': 'localhost:6379',
-        'OPTIONS': {
-            'DB': 1,
-        },
-    },
-}
-
-
-REDIS_HOST = "localhost"
-REDIS_PORT = 6379
-
-CELERY_RESULT_BACKEND = "redis"
-CELERY_REDIS_HOST = REDIS_HOST
-CELERY_REDIS_PORT = REDIS_PORT
-CELERY_REDIS_DB = 2
-
-BROKER_TRANSPORT = "redis"
-BROKER_HOST = REDIS_HOST
-BROKER_PORT = REDIS_PORT
-BROKER_VHOST = "3"
 
 
 # Internationalization
