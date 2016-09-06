@@ -5,12 +5,12 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.core.context_processors import csrf
 from django.views.decorators.csrf import csrf_exempt
-
+from django.views.decorators.cache import cache_page
+from django.core.cache import cache
 
 # Create your views here.
 
 LOGGER = logging.getLogger()
-dict_user = {}
 
 
 def main_view(request):
@@ -23,6 +23,7 @@ def main_view(request):
     return render(request, 'redis_test/main_view.html', {'user': request.user})
 
 
+@cache_page(60 * 5)
 @csrf_exempt
 def visit_count(request, user_id):
     if request.method == 'POST':
@@ -30,19 +31,20 @@ def visit_count(request, user_id):
         LOGGER.warning("POST visit request")
         LOGGER.warning(user_id)
 
-        if dict_user.get(user_id, 0) == 0:
-            dict_user[user_id] = 1
+        if cache.get(user_id) is None:
+            cache.set(user_id, 1)
         else:
-            dict_user[user_id] += 1
+            tmp_visit_count = cache.get(user_id)
+            cache.set(user_id, tmp_visit_count + 1)
 
-        LOGGER.warning(dict_user[user_id])
+        LOGGER.warning(cache.get(user_id))
         return render(request, 'redis_test/main_view.html', {'user': request.user})
     else:
         """ 최근 5분간의 해당 userid의 사용자의 방문 수를 보여준다 """
         LOGGER.warning("GET visit request")
         LOGGER.warning(user_id)
-        LOGGER.warning(dict_user[user_id])
-        return render(request, 'redis_test/visit.html', {'visit_count': dict_user[user_id]})
+        LOGGER.warning(cache.get(user_id))
+        return render(request, 'redis_test/visit.html', {'visit_count': cache.get(user_id)})
 
 
 def register(request):

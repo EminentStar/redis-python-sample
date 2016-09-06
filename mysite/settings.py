@@ -73,7 +73,6 @@ APPEND_SLASH=False
 
 LOGIN_REDIRECT_URL = '/'
 
-
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
 
@@ -85,6 +84,14 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+}
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': '/tmp/redis.sock',
+    },
 }
 
 

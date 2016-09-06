@@ -5,6 +5,6 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = {
-     url(r'^$', views.main_view, name='main_view'),
-     url(r'^visits/(?P<user_id>.+?)$', views.visit_count),
+    url(r'^$', views.main_view, name='main_view'),
+    url(r'^visits/(?P<user_id>.+?)$', views.visit_count),
 }
