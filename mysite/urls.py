@@ -21,4 +21,8 @@ urlpatterns = [
             'next_page': '/'
         }
     ),
+    url(r'^accounts/register/$', 'redis_test.views.register', name='register'),
+    url(r'^accounts/register/complete/$', 'redis_test.views.registration_complete',
+        name='registration_complete')
+
 ]
