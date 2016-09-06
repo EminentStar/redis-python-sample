@@ -15,5 +15,5 @@
 * GET
  > GET방식으로 API가 들어오면, cache에서 user_id가 key인 value를 추출합니다.
 
- > 만약 value가 None이면 0을, None이 아니면 해당 value를 view단으로 렌더링한다.
+ > 만약 value가 None이면 0을, None이 아니면 해당 value를 view단으로 렌더링합니다.
 
