@@ -31,9 +31,10 @@ def visit_count(request, user_id):
         LOGGER.warning("POST visit request")
         LOGGER.warning(user_id)
 
-        if cache.get(user_id) is None:
+        # 캐시에 user_id의 방문수가 저장되어있는지 확인한다
+        if cache.get(user_id) is None:  # 5분 동안 방문한 적이 없다면, 1로 값을 초기화한다
             cache.set(user_id, 1)
-        else:
+        else:  # 방문한 적이 있다면 방문수를 1증가시켜 값을 초기화한다.
             tmp_visit_count = cache.get(user_id)
             cache.set(user_id, tmp_visit_count + 1)
 
@@ -44,7 +45,13 @@ def visit_count(request, user_id):
         LOGGER.warning("GET visit request")
         LOGGER.warning(user_id)
         LOGGER.warning(cache.get(user_id))
-        return render(request, 'redis_test/visit.html', {'visit_count': cache.get(user_id)})
+
+        # 방문자수에 따라 value를 추출한다
+        if cache.get(user_id) is None:
+            visit_cnt = 0
+        else:
+            visit_cnt = cache.get(user_id)
+        return render(request, 'redis_test/visit.html', {'visit_count': visit_cnt})
 
 
 def register(request):
