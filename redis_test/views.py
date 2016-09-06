@@ -1,10 +1,9 @@
+import logging
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.core.context_processors import csrf
-
-import logging
 
 
 # Create your views here.
@@ -20,6 +19,17 @@ def main_view(request):
 
     LOGGER.warning(request.session.session_key)
     return render(request, 'redis_test/main_view.html', {'user': request.user})
+
+
+def visit_count(request, page_alias):
+    if request.method == 'POST':
+        """ /visits/userid의 userid를 저장한다 """
+        LOGGER.warning("POST visit request")
+        LOGGER.warning(page_alias)
+    elif request.method == 'GET':
+        """ 최근 5분간의 해당 userid의 사용자의 방문 수를 보여준다 """
+        LOGGER.warning("GET visit request")
+        LOGGER.warning(page_alias)
 
 
 def register(request):
