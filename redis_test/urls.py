@@ -6,5 +6,5 @@ from . import views
 
 urlpatterns = {
      url(r'^$', views.main_view, name='main_view'),
-     url(r'^(?P<page_alias>.+?)/$', views.visit_count),
+     url(r'^visits/(?P<user_id>.+?)$', views.visit_count),
 }
